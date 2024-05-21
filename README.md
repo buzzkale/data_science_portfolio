@@ -6,6 +6,7 @@ Tools:
 - Pandas, NumPy, SciKit-Learn, MatPlotLib, NLTK, Pickle
 
 ## Contents
+- ## Machine Learning
  - [Regression - Abalone Sex Classifier](https://github.com/buzzkale/data_science_portfolio/blob/main/abalone.ipynb): Linear regression that predicts sex of abalone.
  - [Ensemble learning - Red vs. White Wine](https://github.com/buzzkale/data_science_portfolio/blob/main/wine.ipynb): Using logistic regression and MLPs to predict if a wine is red or white.
  - [Map Reduce - Frequent Itemsets](https://github.com/buzzkale/data_science_portfolio/blob/main/mapreduce.ipynb): Using MapReduce to determine truly frequent itemsets.
