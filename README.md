@@ -3,6 +3,7 @@
 Portfolio of data science projects completed for academic and self-learning.
 
 **Python**: NumPy, Pandas
+
 **Machine Learning**: scikit-learn
 
 ## Contents
