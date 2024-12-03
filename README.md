@@ -4,6 +4,7 @@ Portfolio of data science projects completed for academic and self-learning.
 
 Tools:
 - Pandas, NumPy, SciKit-Learn, MatPlotLib, NLTK, Pickle
+- MySQL, XML
 
 ## Contents
 - ## Machine Learning
