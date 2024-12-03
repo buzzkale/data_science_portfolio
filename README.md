@@ -17,3 +17,4 @@ Tools:
 
 - ## Projects
   - [ChatDB - DBMS Query Generator](https://github.com/buzzkale/data_science_portfolio/tree/main/chatdb): Generates random queries and executes them through MySQL and XML.
+  - [DBMS Queries](https://github.com/buzzkale/data_science_portfolio/tree/main/dbms): Queries in various database management systems.
