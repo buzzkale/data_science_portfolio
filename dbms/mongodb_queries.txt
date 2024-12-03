@@ -1,0 +1,211 @@
+// 1
+db.products.find(
+    { 
+        $and: [
+            { description : /wireless/i },
+            { ratings: { $elemMatch: { rating: 5 } } }
+        ]
+    },
+    { description: 1, _id: 0}
+);
+
+// 2
+db.products.find(
+    { 
+        $and: [
+            { price: { $gte: 100, $lte: 500 } },
+            { stock: { $gte: 50 } }
+        ]
+    },
+    { description: 1, price: 1, stock: 1, _id: 0 }
+);
+
+// 3
+db.orders.find({
+    "shippingAddress.city": "Houston", 
+    items: {
+      $elemMatch: { 
+        price: { $gte: 10, $lte: 50 }, 
+        quantity: { $gt: 1 } 
+      }
+    }
+  }
+);
+  
+// 4
+db.orders.find({
+    status: { $in: ["shipped", "pending"] }, 
+    totalAmount: { $gte: 500 } 
+  }, 
+  {
+    _id: 0, 
+    userId: 1, 
+    shippingAddress: 1 
+  }
+);
+
+// 5
+db.orders.aggregate([
+    {
+      $sort: { totalAmount: -1 } 
+    },
+    {
+      $limit: 3 
+    },
+    {
+      $lookup: { // Join with collections
+        from: "users", 
+        localField: "userId", 
+        foreignField: "_id", 
+        as: "user_info" 
+      }
+    },
+    {
+      $unwind: "$user_info" 
+    },
+    {
+      $project: {
+        _id: 0, 
+        username: "$user_info.username", 
+        totalAmount: 1 
+      }
+    }
+  ]
+);
+
+// 6
+db.users.find({
+    roles: { $in: ["admin"] }, 
+    "address.city": "Seattle" 
+  }, 
+  {
+    _id: 0, 
+    username: 1 
+  }
+);
+  
+// 7
+db.products.aggregate([
+    {
+        $group: {
+            _id: "$category",
+            num_products: { $sum: 1 },
+            avg_price: { $avg: "$price" }
+        }
+    },
+    { $match: { num_products: { $gt: 0 } } },
+    {
+        $lookup: {
+            from: "categories",
+            localField: "_id",
+            foreignField: "_id",
+            as: "category_info"
+        }
+    },
+    {
+        $unwind: "$category_info"
+    },
+    {
+        $project: {
+            _id: 0,
+            category_name: "$category_info.name",
+            num_products: 1,
+            avg_price: 1
+        }
+    }
+]);
+
+
+// 8
+db.orders.aggregate([
+    { 
+      $unwind: "$items" 
+    },
+    { 
+      $lookup: {
+        from: "products", // Join with products collection
+        localField: "items.productId", // Match field in orders
+        foreignField: "_id", // Match field in products
+        as: "productInfo" // Store matched product details
+      }
+    },
+    { 
+      $unwind: "$productInfo" 
+    },
+    { 
+      $group: {
+        _id: "$productInfo.category", 
+        totalSales: { 
+          $sum: { 
+            $multiply: ["$items.price", "$items.quantity"] 
+          } 
+        }
+      }
+    },
+    { 
+      $lookup: {
+        from: "categories", // Join with categories collection
+        localField: "_id", // Match field in products
+        foreignField: "_id", // Match field in categories
+        as: "categoryInfo" // Store matched category details
+      }
+    },
+    { 
+      $unwind: "$categoryInfo" 
+    },
+    { 
+      $project: {
+        _id: 0, 
+        categoryName: "$categoryInfo.name", 
+        totalSales: 1 
+      }
+    }
+]);
+  
+// 9
+db.categories.aggregate([
+    {
+      $match: {
+        name: "Mobile Phones"
+      }
+    },
+    {
+      $lookup: { // Join with products
+        from: "products", 
+        localField: "_id", 
+        foreignField: "category", 
+        as: "mobileProducts" 
+      }
+    },
+    {
+      $unwind: "$mobileProducts"
+    },
+    {
+      $lookup: { // Join with reviews
+        from: "reviews", 
+        localField: "mobileProducts._id", 
+        foreignField: "productId", 
+        as: "productReviews" 
+      }
+    },
+    {
+      $project: {
+        _id: "$mobileProducts._id", 
+        description: "$mobileProducts.description", 
+        reviews: "$productReviews.review" 
+      }
+    }
+  ]);
+  
+
+// 10
+db.products.aggregate([
+    {
+        $project: {
+            _id: 1,
+            avg_rating: { $avg: "$ratings.rating" }
+        }
+    }
+]);
+
+  
