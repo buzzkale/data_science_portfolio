@@ -15,4 +15,4 @@ Tools:
   - [Decision Tree - Grouping Fight Songs](https://github.com/buzzkale/data_science_portfolio/blob/main/fightsongs.ipynb): Using a decision tree to predict cluster labels for college fight songs.
 
 - ## Projects
-  - [ChatDB - DBMS Query Generator](https://github.com/buzzkale/data_science_portfolio/blob/main/abalone.ipynb): Generates random queries and executes them through MySQL and XML.
+  - [ChatDB - DBMS Query Generator](https://github.com/buzzkale/data_science_portfolio/tree/main/chatdb): Generates random queries and executes them through MySQL and XML.
