@@ -13,3 +13,6 @@ Tools:
   - [SVM - Song Mood](https://github.com/buzzkale/data_science_portfolio/blob/main/lyrics-3.ipynb): Using an SVM to determine the mood of a song using lyrics and word vectors.
   - [MLP - Heart Disease](https://github.com/buzzkale/data_science_portfolio/blob/main/heart-disease-2.ipynb): Using a MLP to predict risk of heart disease.
   - [Decision Tree - Grouping Fight Songs](https://github.com/buzzkale/data_science_portfolio/blob/main/fightsongs.ipynb): Using a decision tree to predict cluster labels for college fight songs.
+
+- ## Projects
+  - [ChatDB - DBMS Query Generator](https://github.com/buzzkale/data_science_portfolio/blob/main/abalone.ipynb): Generates random queries and executes them through MySQL and XML.
